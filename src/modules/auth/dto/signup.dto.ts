@@ -1,5 +1,6 @@
 import { IsEmail, IsString, MinLength, IsOptional, IsUrl, Matches, IsNotEmpty, MaxLength } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { i18nValidationMessage } from 'nestjs-i18n';
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH, USERNAME_REGEX, IsMatch } from 'src/common';
 
 export class SignupDto {
@@ -8,8 +9,12 @@ export class SignupDto {
     example: 'user@example.com',
     format: 'email'
   })
-  @IsEmail({}, { message: 'Please provide a valid email address' })
-  @IsNotEmpty({message: 'Email is required',})
+  @IsEmail({}, { 
+    message: i18nValidationMessage('validation.emailInvalid') 
+  })
+  @IsNotEmpty({ 
+    message: i18nValidationMessage('validation.emailRequired') 
+  })
   email: string;
 
   @ApiProperty({
@@ -19,9 +24,17 @@ export class SignupDto {
     pattern: USERNAME_REGEX.source
   })
   @IsString()
-  @IsNotEmpty({ message: 'Username is required' })
-  @MaxLength(USERNAME_MAX_LENGTH, { message: 'Username must be at most 30 characters long' })
-  @Matches(USERNAME_REGEX, { message: 'Username can only contain letters, numbers, and underscores' })
+  @IsNotEmpty({ 
+    message: i18nValidationMessage('validation.usernameRequired') 
+  })
+  @MaxLength(USERNAME_MAX_LENGTH, { 
+    message: i18nValidationMessage('validation.usernameTooLong', {
+      maxLength: USERNAME_MAX_LENGTH,
+    })
+  })
+  @Matches(USERNAME_REGEX, { 
+    message: i18nValidationMessage('validation.usernameInvalid') 
+  })
   username: string;
 
   @ApiProperty({
@@ -31,7 +44,11 @@ export class SignupDto {
     format: 'password'
   })
   @IsString()
-  @MinLength(PASSWORD_MIN_LENGTH, { message: 'Password must be at least 6 characters long' })
+  @MinLength(PASSWORD_MIN_LENGTH, { 
+    message: i18nValidationMessage('validation.passwordTooShort', {
+      minLength: PASSWORD_MIN_LENGTH,
+    })
+  })
   password: string;
 
   @ApiProperty({
@@ -41,8 +58,14 @@ export class SignupDto {
     format: 'password'
   })
   @IsString()
-  @MinLength(PASSWORD_MIN_LENGTH, { message: 'Password confirmation must be at least 6 characters long' })
-  @IsMatch('password', { message: 'Password confirmation must match password' })
+  @MinLength(PASSWORD_MIN_LENGTH, { 
+    message: i18nValidationMessage('validation.passwordConfirmationTooShort', {
+      minLength: PASSWORD_MIN_LENGTH,
+    })
+  })
+  @IsMatch('password', { 
+    message: i18nValidationMessage('validation.passwordsDoNotMatch') 
+  })
   passwordConfirmation: string;
 
   @ApiPropertyOptional({

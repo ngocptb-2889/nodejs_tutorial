@@ -13,6 +13,7 @@ export const dataSourceOptions: DataSourceOptions = {
   database: process.env.DB_NAME,
   entities: [join(__dirname, '..', 'modules', '**', '*.entity.{ts,js}')],
   synchronize: false,
+  logging: process.env.APP_ENV === 'development',
 };
 
 const dataSource = new DataSource(dataSourceOptions);
