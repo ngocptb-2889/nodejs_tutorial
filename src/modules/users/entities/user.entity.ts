@@ -1,11 +1,9 @@
+import { BaseEntity } from 'src/database/base.entity';
 import { USERNAME_MAX_LENGTH } from 'src/common';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 @Entity("users")
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
@@ -18,6 +16,6 @@ export class User {
   @Column({ type: 'text', nullable: true })
   bio: string | null;
 
-  @Column({ nullable: true })
-  image: string;
+  @Column({ type: 'text', nullable: true })
+  image: string | null;
 }

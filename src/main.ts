@@ -1,25 +1,45 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { VersioningType } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { DEFAULT_VERSION } from './common';
+import { DEFAULT_VERSION, PREFIX_API } from './common';
 import { ConfigService } from '@nestjs/config';
+import {
+  I18nValidationPipe,
+  I18nValidationExceptionFilter,
+} from 'nestjs-i18n';
+import { useContainer } from 'class-validator';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
+  app.setGlobalPrefix(PREFIX_API);
+
   // Enable API versioning
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: DEFAULT_VERSION,
     prefix: 'v',
   });
-  
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true,
-  }));
+
+ app.useGlobalPipes(
+    new I18nValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
+
+  app.useGlobalFilters(
+    new I18nValidationExceptionFilter({
+      detailedErrors: false,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Real world API')

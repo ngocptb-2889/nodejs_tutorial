@@ -7,10 +7,7 @@ import { AuthResponseDto } from './dto/auth-response.dto';
 import { HTTP_BAD_REQUEST, HTTP_CREATED, HTTP_OK, HTTP_UNAUTHORIZED } from 'src/common';
 
 @ApiTags('auth')
-@Controller({
-  path: 'auth',
-  version: '1'
-})
+@Controller('users')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -22,24 +19,28 @@ export class AuthController {
     type: SignupDto,
     description: 'User registration data',
     examples: {
-      example1: {
-        summary: 'Complete registration example',
+      complete: {
+        summary: 'Complete registration',
         value: {
-          email: 'user@example.com',
-          username: 'abcde',
-          password: 'Aa@123456',
-          passwordConfirmation: 'Aa@123456',
-          bio: 'Software developer',
-          image: 'https://example.com/avatar.jpg'
+          users: {
+            email: 'user@example.com',
+            username: 'abcde',
+            password: 'Aa@123456',
+            passwordConfirmation: 'Aa@123456',
+            bio: 'Software developer',
+            image: 'https://example.com/avatar.jpg'
+          }
         }
       },
-      example2: {
-        summary: 'Minimal registration example',
+      minimal: {
+        summary: 'Minimal registration',
         value: {
-          email: 'user@example.com',
-          username: 'abcde',
-          password: 'Aa@123456',
-          passwordConfirmation: 'Aa@123456'
+          users: {
+            email: 'user@example.com',
+            username: 'abcde',
+            password: 'Aa@123456',
+            passwordConfirmation: 'Aa@123456'
+          }
         }
       }
     }
@@ -51,15 +52,16 @@ export class AuthController {
   })
   @ApiResponse({ 
     status: HTTP_BAD_REQUEST, 
-    description: 'Bad request - validation errors or email already exists' 
+    description: 'Validation errors or email already exists' 
   })
   @ApiResponse({ 
     status: HTTP_UNAUTHORIZED, 
-    description: 'Unauthorized - passwords do not match or email already in use' 
+    description: 'Passwords do not match or email already in use' 
   })
-  @Post('signup')
-  signup(@Body() input: SignupDto): Promise<AuthResponseDto> {
-    return this.authService.signup(input);
+  @Post('/')
+  async signup(@Body('user') input: SignupDto): Promise<{ user: AuthResponseDto }> {
+    const result = await this.authService.signup(input);
+    return { user: result };
   }
 
   @ApiOperation({ 
@@ -73,8 +75,11 @@ export class AuthController {
       example1: {
         summary: 'Login example',
         value: {
-          email: 'user@example.com',
-          password: 'Aa@123456'
+          users: {
+            username: 'testuser',
+            email: 'user@example.com',
+            password: 'Aa@123456'
+          }
         }
       }
     }
@@ -93,7 +98,8 @@ export class AuthController {
     description: 'Unauthorized - invalid credentials' 
   })
   @Post('login')
-  login(@Body() input: LoginDto): Promise<AuthResponseDto> {
-    return this.authService.login(input);
+  async login(@Body('user') input: LoginDto): Promise<{ user: AuthResponseDto }> {
+    const result = await this.authService.login(input);
+    return { user: result };
   }
 }

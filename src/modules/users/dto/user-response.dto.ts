@@ -2,16 +2,16 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UserResponseDto {
   @ApiProperty({
-    description: 'User ID',
-    example: 1
-  })
-  id: number;
-
-  @ApiProperty({
     description: 'User email address',
     example: 'user@example.com'
   })
   email: string;
+
+  @ApiProperty({
+    description: 'JWT access token',
+    example: '<JWT_ACCESS_TOKEN>'
+  })
+  token: string;
 
   @ApiProperty({
     description: 'Username',

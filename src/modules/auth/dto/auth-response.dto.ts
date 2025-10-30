@@ -1,9 +1,35 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class AuthResponseDto {
   @ApiProperty({
-    description: 'JWT access token',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjQwOTk1MjAwLCJleHAiOjE2NDA5OTg4MDB9.signature'
+    description: 'User email address',
+    example: 'user@example.com'
   })
-  access_token: string;
+  email: string;
+
+  @ApiProperty({
+    description: 'JWT access token',
+    example: '<JWT_ACCESS_TOKEN>'
+  })
+  token: string;
+  
+  @ApiProperty({
+    description: 'Username',
+    example: 'johndoe'
+  })
+  username: string;
+
+  @ApiPropertyOptional({
+    description: 'User bio/description',
+    example: 'Software developer passionate about creating amazing applications',
+    nullable: true
+  })
+  bio?: string | null;
+
+  @ApiPropertyOptional({
+    description: 'Profile image URL',
+    example: 'https://example.com/avatar.jpg',
+    nullable: true
+  })
+  image?: string | null;
 }

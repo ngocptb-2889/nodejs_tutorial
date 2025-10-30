@@ -19,7 +19,12 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "lint": "sunlint --all --input=src",
     "lint:changed": "sunlint --all --changed-files",
-    "lint:security": "sunlint --security --input=src"
+    "lint:security": "sunlint --security --input=src",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/database/data-source.ts",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/database/data-source.ts",
+    "migration:show": "typeorm-ts-node-commonjs migration:show -d src/database/data-source.ts",
+    "migration:create": "typeorm-ts-node-commonjs migration:create"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -33,6 +38,7 @@
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
+    "multer": "^2.0.2",
     "mysql2": "^3.15.3",
     "nestjs-i18n": "^10.5.1",
     "passport": "^0.7.0",
@@ -51,6 +57,7 @@
     "@sun-asterisk/sunlint": "^1.3.18",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/multer": "^2.0.0",
     "@types/node": "^22.10.7",
     "@types/passport-jwt": "^4.0.1",
     "@types/supertest": "^6.0.2",

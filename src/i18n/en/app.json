@@ -8,8 +8,24 @@
     "usernameInvalid": "Username can only contain letters, numbers, and underscores",
     "passwordRequired": "Password is required",
     "passwordTooShort": "Password must be at least {minLength} characters",
+    "passwordComplexity": "Password must contain at least one uppercase letter, one lowercase letter, and one special character",
     "passwordConfirmationRequired": "Password confirmation is required",
     "passwordConfirmationTooShort": "Password confirmation must be at least {minLength} characters",
-    "passwordsDoNotMatch": "Password confirmation must match password"
+    "passwordsDoNotMatch": "Password confirmation must match password",
+    "invalidUrl": "Please provide a valid URL",
+    "uploadFileFail": "Upload image failed",
+    "invalidFileData": "Invalid file data",
+    "invalidCredentials": "Invalid credentials"
+  },
+  "user": {
+    "notFound": "User is not found"
+  },
+  "message": {
+    "success": {
+      "resetPassword": "Password has been reset successfully"
+    },
+    "error": {
+      "resetPassword": "Failed to reset password"
+    }
   }
 }
