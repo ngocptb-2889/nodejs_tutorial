@@ -8,8 +8,24 @@
     "usernameInvalid": "Tên người dùng chỉ có thể chứa chữ cái, số và dấu gạch dưới",
     "passwordRequired": "Mật khẩu là bắt buộc",
     "passwordTooShort": "Mật khẩu phải có ít nhất {minLength} ký tự",
+    "passwordComplexity": "Mật khẩu phải chứa ít nhất một chữ in hoa, một chữ in thường và một ký tự đặc biệt",
     "passwordConfirmationRequired": "Xác nhận mật khẩu là bắt buộc",
     "passwordConfirmationTooShort": "Xác nhận mật khẩu phải có ít nhất {minLength} ký tự",
-    "passwordsDoNotMatch": "Xác nhận mật khẩu phải khớp với mật khẩu"
+    "passwordsDoNotMatch": "Xác nhận mật khẩu phải khớp với mật khẩu",
+    "invalidUrl": "Vui lòng cung cấp một URL hợp lệ",
+    "uploadFileFail": "Tải ảnh lên không thành công",
+    "invalidFileData": "Dữ liệu tệp không hợp lệ",
+    "invalidCredentials": "Thông tin đăng nhập không hợp lệ"
+  },
+  "user": {
+    "notFound": "Người dùng không tồn tại"
+  },
+  "message": {
+    "success": {
+      "resetPassword": "Mật khẩu đã được đặt lại thành công"
+    },
+    "error": {
+      "resetPassword": "Đặt lại mật khẩu thất bại"
+    }
   }
 }
