@@ -6,6 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { dataSourceOptions } from './database/data-source';
 import { i18nConfig } from './i18n/i18n-config';
+import { ArticlesModule } from './modules/articles/articles.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { i18nConfig } from './i18n/i18n-config';
     I18nModule.forRoot(i18nConfig),
     UsersModule,
     AuthModule,
+    ArticlesModule,
   ],
 })
 export class AppModule {}

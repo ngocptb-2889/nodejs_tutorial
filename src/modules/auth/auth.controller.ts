@@ -1,10 +1,9 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiBody, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthResponseDto } from './dto/auth-response.dto';
-import { HTTP_BAD_REQUEST, HTTP_CREATED, HTTP_OK, HTTP_UNAUTHORIZED } from 'src/common';
 
 @ApiTags('auth')
 @Controller('users')
@@ -46,16 +45,16 @@ export class AuthController {
     }
   })
   @ApiResponse({ 
-    status: HTTP_CREATED, 
+    status: HttpStatus.CREATED, 
     description: 'User registered successfully',
     type: AuthResponseDto
   })
   @ApiResponse({ 
-    status: HTTP_BAD_REQUEST, 
+    status: HttpStatus.BAD_REQUEST, 
     description: 'Validation errors or email already exists' 
   })
   @ApiResponse({ 
-    status: HTTP_UNAUTHORIZED, 
+    status: HttpStatus.UNAUTHORIZED, 
     description: 'Passwords do not match or email already in use' 
   })
   @Post('/')
@@ -85,16 +84,16 @@ export class AuthController {
     }
   })
   @ApiResponse({ 
-    status: HTTP_OK, 
+    status: HttpStatus.OK, 
     description: 'Login successful',
     type: AuthResponseDto
   })
   @ApiResponse({ 
-    status: HTTP_BAD_REQUEST, 
+    status: HttpStatus.BAD_REQUEST, 
     description: 'Bad request - validation errors' 
   })
   @ApiResponse({ 
-    status: HTTP_UNAUTHORIZED, 
+    status: HttpStatus.UNAUTHORIZED, 
     description: 'Unauthorized - invalid credentials' 
   })
   @Post('login')

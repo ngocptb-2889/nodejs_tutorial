@@ -22,6 +22,10 @@ export class UsersService {
     return this.repo.findOne({ where: { email } });
   }
 
+  async findById(userId: number): Promise<User | null> {
+    return this.repo.findOne({ where: { id: userId } });
+  }
+
   async create(input: SignupDto): Promise<User> {
     const hashed = await bcrypt.hash(input.password, HASH_LENGTH);
     const user = this.repo.create({

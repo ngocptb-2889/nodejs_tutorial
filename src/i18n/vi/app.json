@@ -15,17 +15,32 @@
     "invalidUrl": "Vui lòng cung cấp một URL hợp lệ",
     "uploadFileFail": "Tải ảnh lên không thành công",
     "invalidFileData": "Dữ liệu tệp không hợp lệ",
-    "invalidCredentials": "Thông tin đăng nhập không hợp lệ"
+    "invalidCredentials": "Thông tin đăng nhập không hợp lệ",
+    "titleRequired": "Tiêu đề là bắt buộc",
+    "titleTooShort": "Tiêu đề phải có ít nhất {minLength} ký tự",
+    "titleTooLong": "Tiêu đề không được vượt quá {maxLength} ký tự",
+    "descriptionRequired": "Mô tả là bắt buộc",
+    "descriptionTooShort": "Mô tả phải có ít nhất {minLength} ký tự",
+    "descriptionTooLong": "Mô tả không được vượt quá {maxLength} ký tự",
+    "bodyRequired": "Nội dung là bắt buộc",
+    "bodyTooShort": "Nội dung phải có ít nhất {minLength} ký tự",
+    "bodyTooLong": "Nội dung không được vượt quá {maxLength} ký tự",
+    "permissionDenied": "Bạn không có quyền thực hiện hành động này"
   },
   "user": {
     "notFound": "Người dùng không tồn tại"
   },
+  "article": {
+    "notFound": "Bài báo không tồn tại"
+  },
   "message": {
     "success": {
-      "resetPassword": "Mật khẩu đã được đặt lại thành công"
+      "resetPassword": "Mật khẩu đã được đặt lại thành công",
+      "deleteArticle": "Bài viết đã được xóa thành công"
     },
     "error": {
-      "resetPassword": "Đặt lại mật khẩu thất bại"
+      "resetPassword": "Đặt lại mật khẩu thất bại",
+      "deleteArticle": "Xóa bài viết thất bại"
     }
   }
 }
