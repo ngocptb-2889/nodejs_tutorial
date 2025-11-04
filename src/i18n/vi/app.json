@@ -33,14 +33,19 @@
   "article": {
     "notFound": "Bài báo không tồn tại"
   },
+  "comment": {
+    "notFound": "Bình luận không tồn tại"
+  },
   "message": {
     "success": {
       "resetPassword": "Mật khẩu đã được đặt lại thành công",
-      "deleteArticle": "Bài viết đã được xóa thành công"
+      "deleteArticle": "Bài viết đã được xóa thành công",
+      "deleteComment": "Bình luận đã được xóa thành công"
     },
     "error": {
       "resetPassword": "Đặt lại mật khẩu thất bại",
-      "deleteArticle": "Xóa bài viết thất bại"
+      "deleteArticle": "Xóa bài viết thất bại",
+      "deleteComment": "Xóa bình luận thất bại"
     }
   }
 }

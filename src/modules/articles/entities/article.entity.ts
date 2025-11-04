@@ -1,9 +1,10 @@
 import { BaseEntity } from 'src/database/base.entity';
-import { Entity, Column, ManyToOne, JoinTable, ManyToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinTable, ManyToMany, BeforeInsert, BeforeUpdate, OneToMany } from 'typeorm';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Tag } from 'src/modules/tags/entities/tag.entity';
 import { toSlug } from 'src/common/utils/string.utils';
 import { FIELD_LENGTH } from 'src/common';
+import { Comment } from 'src/modules/comments/entities/comment.entity';
 
 @Entity("articles")
 export class Article extends BaseEntity {
@@ -32,6 +33,9 @@ export class Article extends BaseEntity {
     inverseJoinColumn: { name: "tag_id", referencedColumnName: "id" },
   })
   tags: Tag[];
+
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments: Comment[];
 
   // Auto generate slug from title
   @BeforeInsert()

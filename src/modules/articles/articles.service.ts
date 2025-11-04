@@ -104,7 +104,7 @@ export class ArticlesService {
     return [...existingTags, ...newTags];
   }
 
-  private async findBySlug(slug: string, relations?: Array<string>): Promise<Article | null> {
+  async findBySlug(slug: string, relations?: Array<string>): Promise<Article | null> {
     return this.articleRepo.findOne({ where: { slug }, relations: relations });
   }
 }
