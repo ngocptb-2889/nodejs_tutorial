@@ -1,6 +1,7 @@
 import { BaseEntity } from 'src/database/base.entity';
 import { USERNAME_MAX_LENGTH } from 'src/common';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
+import { Article } from 'src/modules/articles/entities/article.entity';
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -18,4 +19,7 @@ export class User extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   image: string | null;
+
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[]
 }

@@ -15,17 +15,32 @@
     "invalidUrl": "Please provide a valid URL",
     "uploadFileFail": "Upload image failed",
     "invalidFileData": "Invalid file data",
-    "invalidCredentials": "Invalid credentials"
+    "invalidCredentials": "Invalid credentials",
+    "titleRequired": "Title is required",
+    "titleTooShort": "Title must be at least {minLength} characters",
+    "titleTooLong": "Title must not be longer than {maxLength} characters",
+    "descriptionRequired": "Description is required",
+    "descriptionTooShort": "Description must be at least {minLength} characters",
+    "descriptionTooLong": "Description must not be longer than {maxLength} characters",
+    "bodyRequired": "Body is required",
+    "bodyTooShort": "Body must be at least {minLength} characters",
+    "bodyTooLong": "Body must not be longer than {maxLength} characters",
+    "permissionDenied": "You do not have permission to perform this action"
   },
   "user": {
     "notFound": "User is not found"
   },
+  "article": {
+    "notFound": "Article is not found"
+  },
   "message": {
     "success": {
-      "resetPassword": "Password has been reset successfully"
+      "resetPassword": "Password has been reset successfully",
+      "deleteArticle": "Article has been deleted successfully"
     },
     "error": {
-      "resetPassword": "Failed to reset password"
+      "resetPassword": "Failed to reset password",
+      "deleteArticle": "Failed to delete article"
     }
   }
 }

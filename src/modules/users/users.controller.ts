@@ -1,11 +1,10 @@
-import { Controller, Get, Put, Req, UseGuards, Body, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator } from '@nestjs/common';
+import { Controller, Get, Put, Req, UseGuards, Body, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiBearerAuth, ApiResponse, ApiOperation, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserResponseDto } from './dto/user-response.dto';
-import { imageUploadConfig } from 'src/common';
-import { HTTP_OK, HTTP_UNAUTHORIZED, HTTP_BAD_REQUEST } from 'src/common';
+import { IMAGE_FILE_TYPE, imageUploadConfig, LIMIT_IMAGE_SIZE } from 'src/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { ResetPasswordDto } from './dto/reset-password.dto';
@@ -21,12 +20,12 @@ export class UsersController {
   })
   @ApiBearerAuth()
   @ApiResponse({ 
-    status: HTTP_OK, 
+    status: HttpStatus.OK, 
     description: 'Get user profile successfully',
     type: UserResponseDto
   })
   @ApiResponse({ 
-    status: HTTP_UNAUTHORIZED, 
+    status: HttpStatus.UNAUTHORIZED, 
     description: 'Unauthorized - invalid or missing JWT token' 
   })
   @UseGuards(AuthGuard('jwt'))
@@ -46,16 +45,16 @@ export class UsersController {
     type: UpdateUserDto,
   })
   @ApiResponse({ 
-    status: HTTP_OK, 
+    status: HttpStatus.OK, 
     description: 'User profile updated successfully',
     type: UserResponseDto
   })
   @ApiResponse({ 
-    status: HTTP_BAD_REQUEST, 
+    status: HttpStatus.BAD_REQUEST, 
     description: 'Invalid input data, file too large (max 5MB), or unsupported file format (only jpeg, jpg, png, gif, webp allowed)' 
   })
   @ApiResponse({ 
-    status: HTTP_UNAUTHORIZED, 
+    status: HttpStatus.UNAUTHORIZED, 
     description: 'Unauthorized - invalid or missing JWT token' 
   })
   @UseGuards(AuthGuard('jwt'))
@@ -68,8 +67,8 @@ export class UsersController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB
-          new FileTypeValidator({ fileType: /^image\/(jpeg|jpg|png|gif|webp)$/ }),
+          new MaxFileSizeValidator({ maxSize: LIMIT_IMAGE_SIZE }), // 5MB
+          new FileTypeValidator({ fileType: IMAGE_FILE_TYPE }),
         ],
         fileIsRequired: false,
       })
@@ -88,15 +87,15 @@ export class UsersController {
     type: ResetPasswordDto,
   })
   @ApiResponse({ 
-    status: HTTP_OK, 
+    status: HttpStatus.OK, 
     description: 'Password reset successfully'
   })
   @ApiResponse({ 
-    status: HTTP_BAD_REQUEST, 
+    status: HttpStatus.BAD_REQUEST, 
     description: 'Invalid input data'
   })
   @ApiResponse({ 
-    status: HTTP_UNAUTHORIZED, 
+    status: HttpStatus.UNAUTHORIZED, 
     description: 'Unauthorized - invalid or missing JWT token' 
   })
   @UseGuards(AuthGuard('jwt'))
