@@ -20,3 +20,8 @@ export const FIELD_LENGTH = {
   TAG_NAME_MIN: 1,
   TAG_NAME_MAX: 100,
 } as const;
+
+export const PAGE = 1;
+export const PER_PAGE = 20;
+export const MIN_DEFAULT = 1;
+export const OFFSET_DEFAULT = 0;

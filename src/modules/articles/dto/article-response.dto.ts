@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { UserProfileDto } from 'src/modules/users/dto/user-profile.dto';
 
 export class ArticleResponseDto {
