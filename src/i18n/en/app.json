@@ -37,6 +37,12 @@
   "comment": {
     "notFound": "Comment is not found"
   },
+  "userFavorites": {
+    "alreadyFavorited": "Article is already in favorites",
+    "favoritedSuccessfully": "Article has been favorited successfully",
+    "unfavoritedSuccessfully": "Article has been unfavorited successfully",
+    "notFavorited": "Article is not in favorites"
+  },
   "message": {
     "success": {
       "resetPassword": "Password has been reset successfully",

@@ -9,6 +9,7 @@ import { i18nConfig } from './i18n/i18n-config';
 import { ArticlesModule } from './modules/articles/articles.module';
 import { CommentsModule } from './modules/comments/comments.module';
 import { UserFollowsModule } from './modules/user-follows/user-follows.module';
+import { UserFavoritesModule } from './modules/user-favorites/user-favorites.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UserFollowsModule } from './modules/user-follows/user-follows.module';
     ArticlesModule,
     CommentsModule,
     UserFollowsModule,
+    UserFavoritesModule,
   ],
 })
 export class AppModule {}

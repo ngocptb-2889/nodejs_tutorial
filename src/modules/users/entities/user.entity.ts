@@ -4,6 +4,7 @@ import { Entity, Column, OneToMany } from 'typeorm';
 import { Article } from 'src/modules/articles/entities/article.entity';
 import { Comment } from 'src/modules/comments/entities/comment.entity';
 import { Expose } from 'class-transformer';
+import { UserFavorite } from 'src/modules/user-favorites/entities/user-favorite.entity';
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -36,4 +37,7 @@ export class User extends BaseEntity {
 
   @Expose()
   following?: boolean;
+
+  @OneToMany(() => UserFavorite, (userFavorite) => userFavorite.user)
+  favorites: UserFavorite[];
 }

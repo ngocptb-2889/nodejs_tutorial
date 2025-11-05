@@ -5,6 +5,8 @@ import { Tag } from 'src/modules/tags/entities/tag.entity';
 import { toSlug } from 'src/common/utils/string.utils';
 import { FIELD_LENGTH } from 'src/common';
 import { Comment } from 'src/modules/comments/entities/comment.entity';
+import { UserFavorite } from 'src/modules/user-favorites/entities/user-favorite.entity';
+import { Expose } from 'class-transformer';
 
 @Entity("articles")
 export class Article extends BaseEntity {
@@ -37,6 +39,9 @@ export class Article extends BaseEntity {
   @OneToMany(() => Comment, (comment) => comment.article)
   comments: Comment[];
 
+  @OneToMany(() => UserFavorite , (userFavorite) => userFavorite.article)
+  favorites: UserFavorite[];
+
   // Auto generate slug from title
   @BeforeInsert()
   @BeforeUpdate()
@@ -54,4 +59,12 @@ export class Article extends BaseEntity {
       this.slug = `${truncatedSlug}-${timestamp}`;
     }
   }
+
+  @Expose()
+  get favoritesCount(): number {
+    return this.favorites?.length ?? 0;
+  }
+
+  @Expose()
+  favorited?: boolean;
 }
