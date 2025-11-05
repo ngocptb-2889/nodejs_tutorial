@@ -2,6 +2,7 @@ import { BaseEntity } from 'src/database/base.entity';
 import { USERNAME_MAX_LENGTH } from 'src/common';
 import { Entity, Column, OneToMany } from 'typeorm';
 import { Article } from 'src/modules/articles/entities/article.entity';
+import { Comment } from 'src/modules/comments/entities/comment.entity';
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -22,4 +23,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Article, (article) => article.author)
   articles: Article[]
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[]
 }

@@ -7,6 +7,7 @@ import { UsersModule } from './modules/users/users.module';
 import { dataSourceOptions } from './database/data-source';
 import { i18nConfig } from './i18n/i18n-config';
 import { ArticlesModule } from './modules/articles/articles.module';
+import { CommentsModule } from './modules/comments/comments.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ArticlesModule } from './modules/articles/articles.module';
     UsersModule,
     AuthModule,
     ArticlesModule,
+    CommentsModule,
   ],
 })
 export class AppModule {}

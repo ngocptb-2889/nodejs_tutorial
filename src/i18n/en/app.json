@@ -33,14 +33,19 @@
   "article": {
     "notFound": "Article is not found"
   },
+  "comment": {
+    "notFound": "Comment is not found"
+  },
   "message": {
     "success": {
       "resetPassword": "Password has been reset successfully",
-      "deleteArticle": "Article has been deleted successfully"
+      "deleteArticle": "Article has been deleted successfully",
+      "deleteComment": "Comment has been deleted successfully"
     },
     "error": {
       "resetPassword": "Failed to reset password",
-      "deleteArticle": "Failed to delete article"
+      "deleteArticle": "Failed to delete article",
+      "deleteComment": "Failed to delete comment"
     }
   }
 }
