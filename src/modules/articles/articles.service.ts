@@ -8,6 +8,9 @@ import { I18nService } from 'nestjs-i18n';
 import { Tag } from '../tags/entities/tag.entity';
 import { ArticleResponseDto } from './dto/article-response.dto';
 import { UsersService } from '../users/users.service';
+import { ArticleQueryDto } from './dto/article-query.dto';
+import { PaginatedResponseDto } from 'src/common/dto/pagination-response.dto';
+import { PAGE, PER_PAGE } from 'src/common';
 
 @Injectable()
 export class ArticlesService {
@@ -106,5 +109,41 @@ export class ArticlesService {
 
   async findBySlug(slug: string, relations?: Array<string>): Promise<Article | null> {
     return this.articleRepo.findOne({ where: { slug }, relations: relations });
+  }
+
+  async getList(query: ArticleQueryDto): Promise<PaginatedResponseDto<ArticleResponseDto>> {
+    const qb = this.articleRepo.createQueryBuilder('article')
+      .leftJoinAndSelect('article.author', 'author')
+      .leftJoinAndSelect('article.tags', 'tags');
+
+    if (query.tags) {
+      qb.andWhere('tags.name In(:tagName)', { tagName: query.tags });
+    }
+    
+    if (query.author) {
+      qb.andWhere('author.username = :authorName', { authorName: query.author });
+    }
+    const totalItems = await qb.getCount();
+
+    const page = query.page || PAGE;
+    const limit = query.limit || PER_PAGE;
+    const offset = query.offset || (page - 1) * limit;
+
+    const articles = await qb
+      .orderBy('article.createdAt', 'DESC')
+      .skip(offset)
+      .take(limit)
+      .getMany();
+
+    const data = articles.map(article => ArticleResponseDto.fromEntity(article));
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return new PaginatedResponseDto<ArticleResponseDto>(data, {
+      page,
+      limit,
+      totalItems,
+      totalPages
+    }); 
   }
 }

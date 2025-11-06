@@ -1,11 +1,13 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { ArticlesService } from './articles.service';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { ArticleResponseDto } from './dto/article-response.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { PaginatedResponseDto } from 'src/common/dto/pagination-response.dto';
+import { ArticleQueryDto } from './dto/article-query.dto';
 
 @ApiTags('articles')
 @Controller('articles')
@@ -131,5 +133,32 @@ export class ArticlesController {
     @CurrentUser() user: any,
   ): Promise<{ message: string }> {
     return this.articleService.delete(user.id, slug);
+  }
+
+  @ApiOperation({
+    summary: 'Get list of articles',
+    description: 'Retrieve a paginated list of articles with optional filters such as tag and author.',
+  })
+  @ApiQuery({name: 'tag', required: false, type: String, description: 'Filter by tag' })
+  @ApiQuery({ name: 'author', required: false, type: String, description: 'Filter by author username' })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Current page number (default: 1)' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page (default: 20)' })
+  @ApiQuery({ name: 'offset', required: false, type: Number, description: 'Offset/skip number of articles (default is 0)' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successfully retrieved list of articles',
+    type: PaginatedResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid query parameters',
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Internal server error',
+  })
+  @Get('/')
+  async getList(@Query() query: ArticleQueryDto): Promise<PaginatedResponseDto<ArticleResponseDto>> {
+    return this.articleService.getList(query);
   }
 }
