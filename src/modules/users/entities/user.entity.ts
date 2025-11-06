@@ -3,6 +3,7 @@ import { USERNAME_MAX_LENGTH } from 'src/common';
 import { Entity, Column, OneToMany } from 'typeorm';
 import { Article } from 'src/modules/articles/entities/article.entity';
 import { Comment } from 'src/modules/comments/entities/comment.entity';
+import { Expose } from 'class-transformer';
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -26,4 +27,13 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[]
+
+  @OneToMany(() => User, user => user.id)
+  follower: User[];
+
+  @OneToMany(() => User, user => user.id)
+  followed: User[];
+
+  @Expose()
+  following?: boolean;
 }
