@@ -28,7 +28,8 @@
     "permissionDenied": "You do not have permission to perform this action"
   },
   "user": {
-    "notFound": "User is not found"
+    "notFound": "User is not found",
+    "cannotFollowYourself": "You cannot follow yourself"
   },
   "article": {
     "notFound": "Article is not found"

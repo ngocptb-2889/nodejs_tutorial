@@ -9,6 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UploadService } from '../upload/upload.service';
 import { I18nService } from 'nestjs-i18n';
 import { UserResponseDto } from './dto/user-response.dto';
+import { UserProfileDto } from './dto/user-profile.dto';
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,12 @@ export class UsersService {
 
   async findById(userId: number): Promise<User | null> {
     return this.repo.findOne({ where: { id: userId } });
+  }
+
+  async findBy(field: keyof User, value: any): Promise<User | null> {
+    const whereClause = {};
+    whereClause[field] = value;
+    return this.repo.findOne({ where: whereClause });
   }
 
   async create(input: SignupDto): Promise<User> {
@@ -111,5 +118,14 @@ export class UsersService {
     } catch (error) {
       throw new InternalServerErrorException(this.i18n.translate('app.message.error.resetPassword'));
     }
+  }
+
+  async getProfile(username: string): Promise<UserProfileDto> {
+    const user = await this.repo.findOne({ where: { username } });
+    if (!user) {
+      throw new NotFoundException(this.i18n.translate('app.user.notFound'));
+    }
+
+    return UserProfileDto.fromEntity(user);
   }
 }

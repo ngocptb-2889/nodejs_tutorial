@@ -8,6 +8,7 @@ import { dataSourceOptions } from './database/data-source';
 import { i18nConfig } from './i18n/i18n-config';
 import { ArticlesModule } from './modules/articles/articles.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { UserFollowsModule } from './modules/user-follows/user-follows.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CommentsModule } from './modules/comments/comments.module';
     AuthModule,
     ArticlesModule,
     CommentsModule,
+    UserFollowsModule,
   ],
 })
 export class AppModule {}

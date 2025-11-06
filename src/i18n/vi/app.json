@@ -28,7 +28,8 @@
     "permissionDenied": "Bạn không có quyền thực hiện hành động này"
   },
   "user": {
-    "notFound": "Người dùng không tồn tại"
+    "notFound": "Người dùng không tồn tại",
+    "cannotFollowYourself": "Bạn không thể theo dõi chính mình"
   },
   "article": {
     "notFound": "Bài báo không tồn tại"
