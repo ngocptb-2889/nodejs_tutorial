@@ -37,6 +37,12 @@
   "comment": {
     "notFound": "Bình luận không tồn tại"
   },
+  "userFavorites": {
+    "alreadyFavorited": "Bài viết đã có trong mục yêu thích",
+    "favoritedSuccessfully": "Bài viết đã được thêm vào mục yêu thích thành công",
+    "unfavoritedSuccessfully": "Bài viết đã được gỡ khỏi mục yêu thích thành công",
+    "notFavorited": "Bài viết không có trong mục yêu thích"
+  },
   "message": {
     "success": {
       "resetPassword": "Mật khẩu đã được đặt lại thành công",

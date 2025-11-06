@@ -114,7 +114,8 @@ export class ArticlesService {
   async getList(query: ArticleQueryDto): Promise<PaginatedResponseDto<ArticleResponseDto>> {
     const qb = this.articleRepo.createQueryBuilder('article')
       .leftJoinAndSelect('article.author', 'author')
-      .leftJoinAndSelect('article.tags', 'tags');
+      .leftJoinAndSelect('article.tags', 'tags')
+      .leftJoinAndSelect('article.favorites', 'favorites');
 
     if (query.tags) {
       qb.andWhere('tags.name In(:tagName)', { tagName: query.tags });

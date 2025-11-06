@@ -50,6 +50,18 @@ export class ArticleResponseDto {
   })
   author: UserProfileDto;
 
+  @ApiProperty({
+    description: 'Whether the current user has favorited this article',
+    example: true,
+  })
+  favorited: boolean;
+
+  @ApiProperty({
+    description: 'Total number of favorites this article has received',
+    example: 8,
+  })
+  favoritesCount: number;
+
   static fromEntity(entity: any): ArticleResponseDto {
     const dto = new ArticleResponseDto();
     dto.slug = entity.slug;
@@ -60,6 +72,8 @@ export class ArticleResponseDto {
     dto.createdAt = entity.createdAt;
     dto.updatedAt = entity.updatedAt;
     dto.author = UserProfileDto.fromEntity(entity.author);
+    dto.favorited = entity.favorited || false;
+    dto.favoritesCount = entity.favoritesCount || 0;
 
     return dto;
   }
