@@ -1,49 +1,19 @@
 import { ResetPasswordDto } from './reset-password.dto';
-import { ValidationTestHelper } from 'src/common/test/validation.helper';
+import { PasswordValidationTestHelper, ValidationTestHelper } from 'src/common/test/validation.helper';
 
 describe('ResetPasswordDto Validation', () => {
   const validPassword = 'Password123!';
+  const validData = {
+    password: 'Password123!',
+    passwordConfirmation: 'Password123!',
+  }
 
   describe('password', () => {
-    it('should accept valid password', async () => {
-      const dto = { password: validPassword, passwordConfirmation: validPassword };
-      const { isValid, errors } = await ValidationTestHelper.validateDto(ResetPasswordDto, dto);
-      expect(isValid).toBe(true);
-      expect(errors).toHaveLength(0);
-    });
-
-    it('should reject too short password', async () => {
-      const dto = { password: 'Ab1!', passwordConfirmation: 'Ab1!' };
-      const { isValid, errors } = await ValidationTestHelper.validateDto(ResetPasswordDto, dto);
-      expect(isValid).toBe(false);
-      expect(errors.some(e => e.toLowerCase().includes('short'))).toBe(true);
-    });
-
-    it('should reject password not matching complexity rule', async () => {
-      const invalids = ['password', 'PASSWORD', 'Password', 'password123', '123456789'];
-      for (const password of invalids) {
-        const dto = { password, passwordConfirmation: password };
-        const { isValid, errors } = await ValidationTestHelper.validateDto(ResetPasswordDto, dto);
-        expect(isValid).toBe(false);
-        expect(errors.some(e => e.toLowerCase().includes('complexity'))).toBe(true);
-      }
-    });
+    PasswordValidationTestHelper.validatePasswordField(ResetPasswordDto, validData, true);
   });
 
   describe('passwordConfirmation', () => {
-    it('should require passwordConfirmation field', async () => {
-      const dto = { password: validPassword };
-      const { isValid, errors } = await ValidationTestHelper.validateDto(ResetPasswordDto, dto);
-      expect(isValid).toBe(false);
-      expect(errors.some(e => e.toLowerCase().includes('passwordconfirmation'))).toBe(true);
-    });
-
-    it('should reject too short passwordConfirmation', async () => {
-      const dto = { password: validPassword, passwordConfirmation: 'A1!' };
-      const { isValid, errors } = await ValidationTestHelper.validateDto(ResetPasswordDto, dto);
-      expect(isValid).toBe(false);
-      expect(errors.some(e => e.toLowerCase().includes('short'))).toBe(true);
-    });
+    PasswordValidationTestHelper.validatePasswordField(ResetPasswordDto, validData, true, 'passwordConfirmation');
 
     it('should reject passwordConfirmation that does not match password', async () => {
       const dto = { password: validPassword, passwordConfirmation: 'Password123?' };
@@ -53,8 +23,7 @@ describe('ResetPasswordDto Validation', () => {
     });
 
     it('should accept matching password and passwordConfirmation', async () => {
-      const dto = { password: validPassword, passwordConfirmation: validPassword };
-      const { isValid, errors } = await ValidationTestHelper.validateDto(ResetPasswordDto, dto);
+      const { isValid, errors } = await ValidationTestHelper.validateDto(ResetPasswordDto, validData);
       expect(isValid).toBe(true);
       expect(errors).toHaveLength(0);
     });
