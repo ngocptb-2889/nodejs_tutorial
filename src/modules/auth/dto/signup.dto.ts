@@ -1,7 +1,7 @@
 import { IsEmail, IsString, MinLength, IsOptional, IsUrl, Matches, IsNotEmpty, MaxLength } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
-import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, USERNAME_MAX_LENGTH, USERNAME_REGEX, IsMatch } from 'src/common';
+import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, USERNAME_MAX_LENGTH, USERNAME_REGEX, IsMatch, USERNAME_MIN_LENGTH, BIO_MAX_LENGTH } from 'src/common';
 
 export class SignupDto {
   @ApiProperty({
@@ -20,12 +20,18 @@ export class SignupDto {
   @ApiProperty({
     description: 'Username for the account',
     example: 'abcde',
+    minLength: USERNAME_MIN_LENGTH,
     maxLength: USERNAME_MAX_LENGTH,
     pattern: USERNAME_REGEX.source
   })
   @IsString()
   @IsNotEmpty({ 
     message: i18nValidationMessage('app.validation.usernameRequired') 
+  })
+  @MinLength(USERNAME_MIN_LENGTH, { 
+    message: i18nValidationMessage('app.validation.usernameTooShort', {
+      minLength: USERNAME_MIN_LENGTH,
+    })
   })
   @MaxLength(USERNAME_MAX_LENGTH, { 
     message: i18nValidationMessage('app.validation.usernameTooLong', {
@@ -75,10 +81,16 @@ export class SignupDto {
   @ApiPropertyOptional({
     description: 'User bio/description',
     example: 'Software developer passionate about creating amazing applications',
-    type: 'string'
+    type: 'string',
+    maxLength: BIO_MAX_LENGTH
   })
   @IsOptional()
   @IsString()
+  @MaxLength(BIO_MAX_LENGTH, {
+    message: i18nValidationMessage('app.validation.bioTooLong', {
+      maxLength: BIO_MAX_LENGTH,
+    })
+  })
   bio?: string;
 
   @ApiPropertyOptional({
